@@ -23,4 +23,10 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Core.Persistence">
+      <HintPath>..\..\..\corePackages\Core.Packages\Core.Persistence\bin\Debug\net7.0\Core.Persistence.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
