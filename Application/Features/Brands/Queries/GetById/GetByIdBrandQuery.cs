@@ -8,6 +8,8 @@ namespace Application.Features.Brands.Queries.GetById;
 public class GetByIdBrandQuery : IRequest<GetByIdBrandResponse>
 {
     public Guid Id { get; set; }
+    public bool WithDeleted { get; set; }
+
 
 
     public class GetByIdBrandQueryHandler : IRequestHandler<GetByIdBrandQuery, GetByIdBrandResponse>
@@ -22,7 +24,7 @@ public class GetByIdBrandQuery : IRequest<GetByIdBrandResponse>
         }
         public async Task<GetByIdBrandResponse> Handle(GetByIdBrandQuery request, CancellationToken cancellationToken)
         {
-            Brand? brand = await _brandRepository.GetAsync(predicate: b => b.Id == request.Id, cancellationToken: cancellationToken);
+            Brand? brand = await _brandRepository.GetAsync(predicate: b => b.Id == request.Id,withDeleted:request.WithDeleted, cancellationToken: cancellationToken);
 
             GetByIdBrandResponse response = _mapper.Map<GetByIdBrandResponse>(brand);
 

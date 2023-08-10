@@ -11,6 +11,8 @@ namespace Application.Features.Brands.Queries.GetList;
 public class GetListBrandQuery : IRequest<GetListResponse<GetListBrandListItemDto>>
 {
     public PageRequest PageRequest { get; set; }
+    public bool WithDeleted { get; set; }
+
 
     public class GetListBrandQueryHandler : IRequestHandler<GetListBrandQuery, GetListResponse<GetListBrandListItemDto>>
     {
@@ -28,6 +30,7 @@ public class GetListBrandQuery : IRequest<GetListResponse<GetListBrandListItemDt
             Paginate<Brand> brands = await _brandRepository.GetListAsync(
                  index: request.PageRequest.PageIndex,
                  size: request.PageRequest.PageSize,
+                 withDeleted:request.WithDeleted,
                  cancellationToken: cancellationToken
                  );
 
