@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistence.EntityConfigurations;
 
-public class BrandConfiguration : IEntityTypeConfiguration<Brand>
+public class TransmissionConfiguration : IEntityTypeConfiguration<Transmission>
 {
-    public void Configure(EntityTypeBuilder<Brand> builder)
+    public void Configure(EntityTypeBuilder<Transmission> builder)
     {
-        builder.ToTable("Brands").HasKey(x => x.Id);
+        builder.ToTable("Transmissions").HasKey(x => x.Id);
 
         builder.Property(x => x.Id).HasColumnName("Id").IsRequired();
         builder.Property(x => x.Name).HasColumnName("Name").IsRequired();
@@ -16,7 +16,7 @@ public class BrandConfiguration : IEntityTypeConfiguration<Brand>
         builder.Property(x => x.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(x => x.DeletedDate).HasColumnName("DeletedDate");
 
-        builder.HasIndex(indexExpression: x => x.Name, name: "UK_Brands_Name").IsUnique();
+        builder.HasIndex(indexExpression: x => x.Name, name: "UK_Transmissions_Name").IsUnique();
 
         builder.HasMany(x => x.Models);
 
