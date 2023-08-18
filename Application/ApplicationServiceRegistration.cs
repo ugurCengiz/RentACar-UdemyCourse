@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Core.Application.Pipelines.Caching;
 using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validation;
 using Core.Application.Rules;
@@ -25,11 +26,10 @@ public static class ApplicationServiceRegistration
 
             configuration.AddOpenBehavior(typeof(TransactionScopeBehavior<,>));
 
+            configuration.AddOpenBehavior(typeof(CachingBehavior<,>));
 
         });
-
-
-
+        
         return services;
     }
 
@@ -46,10 +46,7 @@ public static class ApplicationServiceRegistration
             else
                 addWithLifeCycle(services, type);
         return services;
-
-
-
+        
     }
-
-
+    
 }

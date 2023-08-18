@@ -13,6 +13,8 @@ builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDistributedMemoryCache();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,7 +25,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // if (app.Environment.IsProduction())
-    app.ConfigureCustomExceptionMiddleware();
+app.ConfigureCustomExceptionMiddleware();
 
 
 
