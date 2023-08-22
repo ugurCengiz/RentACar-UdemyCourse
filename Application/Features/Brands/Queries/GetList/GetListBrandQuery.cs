@@ -9,7 +9,7 @@ using MediatR;
 
 namespace Application.Features.Brands.Queries.GetList;
 
-public class GetListBrandQuery : IRequest<GetListResponse<GetListBrandListItemDto>>,ICachableRequest
+public class GetListBrandQuery : IRequest<GetListResponse<GetListBrandListItemDto>>, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
     public bool WithDeleted { get; set; }
@@ -17,6 +17,7 @@ public class GetListBrandQuery : IRequest<GetListResponse<GetListBrandListItemDt
 
     public string CacheKey => $"GetListBrandQuery({PageRequest.PageIndex},{PageRequest.PageSize})";
     public bool BypassCache { get; }
+    public string? CacheGroupKey => "GetBrands";
     public TimeSpan? SlidingExpiration { get; }
 
 
@@ -36,7 +37,7 @@ public class GetListBrandQuery : IRequest<GetListResponse<GetListBrandListItemDt
             Paginate<Brand> brands = await _brandRepository.GetListAsync(
                  index: request.PageRequest.PageIndex,
                  size: request.PageRequest.PageSize,
-                 withDeleted:request.WithDeleted,
+                 withDeleted: request.WithDeleted,
                  cancellationToken: cancellationToken
                  );
 
@@ -45,5 +46,5 @@ public class GetListBrandQuery : IRequest<GetListResponse<GetListBrandListItemDt
         }
     }
 
-   
+
 }

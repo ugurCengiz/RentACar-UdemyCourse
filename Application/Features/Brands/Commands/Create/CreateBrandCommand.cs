@@ -1,16 +1,24 @@
 ﻿using Application.Features.Brands.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Caching;
 using Core.Application.Pipelines.Transaction;
 using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.Brands.Commands.Create;
 
-public class CreateBrandCommand : IRequest<CreatedBrandResponse>,ITransactionRequest
+public class CreateBrandCommand : IRequest<CreatedBrandResponse>,ITransactionRequest,ICacheRemoverRequest
 
 {
+    //CacheRemoverRequest
+    public string CacheKey =>  "";
+    public bool BypassCache { get; }
+    public string? CacheGroupKey => "GetBrands";
+
+    // Command
     public string Name { get; set; }
+    //
 
     public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, CreatedBrandResponse>
     {
@@ -38,4 +46,5 @@ public class CreateBrandCommand : IRequest<CreatedBrandResponse>,ITransactionReq
         }
     }
 
+    
 }
