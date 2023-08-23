@@ -1,8 +1,11 @@
 ﻿using System.Reflection;
 using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validation;
 using Core.Application.Rules;
+using Core.CrossCuttingConcerns.Serilog;
+using Core.CrossCuttingConcerns.Serilog.Logger;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -28,8 +31,11 @@ public static class ApplicationServiceRegistration
 
             configuration.AddOpenBehavior(typeof(CachingBehavior<,>));
             configuration.AddOpenBehavior(typeof(CacheRemovingBehavior<,>));
+            configuration.AddOpenBehavior(typeof(LoggingBehavior<,>));
 
         });
+        //Cache
+        services.AddSingleton<LoggerServiceBase, MsSqlLogger>();
 
         return services;
     }

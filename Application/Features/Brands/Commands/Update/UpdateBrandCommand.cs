@@ -1,12 +1,13 @@
 ﻿using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
 using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.Brands.Commands.Update;
 
-public class UpdateBrandCommand : IRequest<UpdatedBrandResponse>, ICacheRemoverRequest
+public class UpdateBrandCommand : IRequest<UpdatedBrandResponse>, ICacheRemoverRequest, ILoggableRequest
 {
 
     //CacheRemoverRequest
